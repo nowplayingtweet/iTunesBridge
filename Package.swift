@@ -5,9 +5,9 @@ import PackageDescription
 let package = Package(
   name: "itunes-scripting-bridge",
   products: [
-    .library(name: "iTunesBridge", targets: ["iTunesApp"]),
+    .library(name: "iTunesBridge", targets: ["iTunesBridge"]),
   ],
   targets: [
-    .target(name: "iTunesApp"),
+    .target(name: "iTunesBridge"),
   ]
 )
