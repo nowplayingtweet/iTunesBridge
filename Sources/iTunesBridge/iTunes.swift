@@ -164,19 +164,19 @@ import ScriptingBridge
 
 // MARK: iTunesApplication
 @objc public protocol iTunesApplication: SBApplicationProtocol {
-    @objc optional func AirPlayDevices() -> [iTunesAirPlayDevice]
-    @objc optional func browserWindows() -> [iTunesBrowserWindow]
-    @objc optional func encoders() -> [iTunesEncoder]
-    @objc optional func EQPresets() -> [iTunesEQPreset]
-    @objc optional func EQWindows() -> [iTunesEQWindow]
-    @objc optional func miniplayerWindows() -> [iTunesMiniplayerWindow]
-    @objc optional func playlists() -> [iTunesPlaylist]
-    @objc optional func playlistWindows() -> [iTunesPlaylistWindow]
-    @objc optional func sources() -> [iTunesSource]
-    @objc optional func tracks() -> [iTunesTrack]
-    @objc optional func videoWindows() -> [iTunesVideoWindow]
-    @objc optional func visuals() -> [iTunesVisual]
-    @objc optional func windows() -> [iTunesWindow]
+    @objc optional func AirPlayDevices() -> SBElementArray
+    @objc optional func browserWindows() -> SBElementArray
+    @objc optional func encoders() -> SBElementArray
+    @objc optional func EQPresets() -> SBElementArray
+    @objc optional func EQWindows() -> SBElementArray
+    @objc optional func miniplayerWindows() -> SBElementArray
+    @objc optional func playlists() -> SBElementArray
+    @objc optional func playlistWindows() -> SBElementArray
+    @objc optional func sources() -> SBElementArray
+    @objc optional func tracks() -> SBElementArray
+    @objc optional func videoWindows() -> SBElementArray
+    @objc optional func visuals() -> SBElementArray
+    @objc optional func windows() -> SBElementArray
     @objc optional var AirPlayEnabled: Bool { get } // is AirPlay currently enabled?
     @objc optional var converting: Bool { get } // is a track currently being converted?
     @objc optional var currentAirPlayDevices: [iTunesAirPlayDevice] { get } // the currently selected AirPlay device(s)
@@ -327,8 +327,8 @@ extension SBObject: iTunesEQPreset {}
 
 // MARK: iTunesPlaylist
 @objc public protocol iTunesPlaylist: iTunesItem {
-    @objc optional func tracks() -> [iTunesTrack]
-    @objc optional func artworks() -> [iTunesArtwork]
+    @objc optional func tracks() -> SBElementArray
+    @objc optional func artworks() -> SBElementArray
     @objc optional var objectDescription: String { get } // the description of the playlist
     @objc optional var disliked: Bool { get } // is this playlist disliked?
     @objc optional var duration: Int { get } // the total length of all songs (in seconds)
@@ -354,7 +354,7 @@ extension SBObject: iTunesPlaylist {}
 
 // MARK: iTunesAudioCDPlaylist
 @objc public protocol iTunesAudioCDPlaylist: iTunesPlaylist {
-    @objc optional func audioCDTracks() -> [iTunesAudioCDTrack]
+    @objc optional func audioCDTracks() -> SBElementArray
     @objc optional var artist: String { get } // the artist of the CD
     @objc optional var compilation: Bool { get } // is this CD a compilation album?
     @objc optional var composer: String { get } // the composer of the CD
@@ -374,26 +374,26 @@ extension SBObject: iTunesAudioCDPlaylist {}
 
 // MARK: iTunesLibraryPlaylist
 @objc public protocol iTunesLibraryPlaylist: iTunesPlaylist {
-    @objc optional func fileTracks() -> [iTunesFileTrack]
-    @objc optional func URLTracks() -> [iTunesURLTrack]
-    @objc optional func sharedTracks() -> [iTunesSharedTrack]
+    @objc optional func fileTracks() -> SBElementArray
+    @objc optional func URLTracks() -> SBElementArray
+    @objc optional func sharedTracks() -> SBElementArray
 }
 extension SBObject: iTunesLibraryPlaylist {}
 
 // MARK: iTunesRadioTunerPlaylist
 @objc public protocol iTunesRadioTunerPlaylist: iTunesPlaylist {
-    @objc optional func URLTracks() -> [iTunesURLTrack]
+    @objc optional func URLTracks() -> SBElementArray
 }
 extension SBObject: iTunesRadioTunerPlaylist {}
 
 // MARK: iTunesSource
 @objc public protocol iTunesSource: iTunesItem {
-    @objc optional func audioCDPlaylists() -> [iTunesAudioCDPlaylist]
-    @objc optional func libraryPlaylists() -> [iTunesLibraryPlaylist]
-    @objc optional func playlists() -> [iTunesPlaylist]
-    @objc optional func radioTunerPlaylists() -> [iTunesRadioTunerPlaylist]
-    @objc optional func subscriptionPlaylists() -> [iTunesSubscriptionPlaylist]
-    @objc optional func userPlaylists() -> [iTunesUserPlaylist]
+    @objc optional func audioCDPlaylists() -> SBElementArray
+    @objc optional func libraryPlaylists() -> SBElementArray
+    @objc optional func playlists() -> SBElementArray
+    @objc optional func radioTunerPlaylists() -> SBElementArray
+    @objc optional func subscriptionPlaylists() -> SBElementArray
+    @objc optional func userPlaylists() -> SBElementArray
     @objc optional var capacity: Int64 { get } // the total size of the source if it has a fixed size
     @objc optional var freeSpace: Int64 { get } // the free space on the source if it has a fixed size
     @objc optional var kind: iTunesESrc { get }
@@ -404,14 +404,14 @@ extension SBObject: iTunesSource {}
 
 // MARK: iTunesSubscriptionPlaylist
 @objc public protocol iTunesSubscriptionPlaylist: iTunesPlaylist {
-    @objc optional func fileTracks() -> [iTunesFileTrack]
-    @objc optional func URLTracks() -> [iTunesURLTrack]
+    @objc optional func fileTracks() -> SBElementArray
+    @objc optional func URLTracks() -> SBElementArray
 }
 extension SBObject: iTunesSubscriptionPlaylist {}
 
 // MARK: iTunesTrack
 @objc public protocol iTunesTrack: iTunesItem {
-    @objc optional func artworks() -> [iTunesArtwork]
+    @objc optional func artworks() -> SBElementArray
     @objc optional var album: String { get } // the album name of the track
     @objc optional var albumArtist: String { get } // the album artist of the track
     @objc optional var albumDisliked: Bool { get } // is the album for this track disliked?
@@ -568,9 +568,9 @@ extension SBObject: iTunesURLTrack {}
 
 // MARK: iTunesUserPlaylist
 @objc public protocol iTunesUserPlaylist: iTunesPlaylist {
-    @objc optional func fileTracks() -> [iTunesFileTrack]
-    @objc optional func URLTracks() -> [iTunesURLTrack]
-    @objc optional func sharedTracks() -> [iTunesSharedTrack]
+    @objc optional func fileTracks() -> SBElementArray
+    @objc optional func URLTracks() -> SBElementArray
+    @objc optional func sharedTracks() -> SBElementArray
     @objc optional var shared: Bool { get } // is this playlist shared?
     @objc optional var smart: Bool { get } // is this a Smart Playlist?
     @objc optional var genius: Bool { get } // is this a Genius Playlist?
